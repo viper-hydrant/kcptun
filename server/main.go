@@ -17,7 +17,7 @@ import (
 
 	"github.com/golang/snappy"
 	"github.com/urfave/cli"
-	kcp "github.com/xtaci/kcp-go"
+	"github.com/viper-hydrant/kcp-go"
 	"github.com/xtaci/smux"
 )
 
