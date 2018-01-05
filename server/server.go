@@ -114,7 +114,7 @@ func checkError(err error) {
 	}
 }
 
-func ActivateServer(target string) {
+func ActivateServer(listen, target string) {
 	rand.Seed(int64(time.Now().Nanosecond()))
 	if VERSION == "SELFBUILD" {
 		// add more log flags for debugging
@@ -125,11 +125,6 @@ func ActivateServer(target string) {
 	myApp.Usage = "server(with SMUX)"
 	myApp.Version = VERSION
 	myApp.Flags = []cli.Flag{
-		cli.StringFlag{
-			Name:  "listen,l",
-			Value: ":29900",
-			Usage: "kcp server listen address",
-		},
 		cli.StringFlag{
 			Name:   "key",
 			Value:  "it's a secrect",
@@ -246,7 +241,7 @@ func ActivateServer(target string) {
 	}
 	myApp.Action = func(c *cli.Context) error {
 		config := Config{}
-		config.Listen = c.String("listen")
+		config.Listen = listen
 		config.Target = target
 		config.Key = c.String("key")
 		config.Crypt = c.String("crypt")
