@@ -1,4 +1,4 @@
-package main
+package kcptun
 
 import (
 	"crypto/sha1"
@@ -89,7 +89,7 @@ func checkError(err error) {
 	}
 }
 
-func main() {
+func ActivateClient(localaddr, remoteaddr string) {
 	rand.Seed(int64(time.Now().Nanosecond()))
 	if VERSION == "SELFBUILD" {
 		// add more log flags for debugging
@@ -100,16 +100,6 @@ func main() {
 	myApp.Usage = "client(with SMUX)"
 	myApp.Version = VERSION
 	myApp.Flags = []cli.Flag{
-		cli.StringFlag{
-			Name:  "localaddr,l",
-			Value: ":12948",
-			Usage: "local listen address",
-		},
-		cli.StringFlag{
-			Name:  "remoteaddr, r",
-			Value: "vps:29900",
-			Usage: "kcp server address",
-		},
 		cli.StringFlag{
 			Name:   "key",
 			Value:  "it's a secrect",
@@ -235,10 +225,11 @@ func main() {
 			Usage: "config from json file, which will override the command from shell",
 		},
 	}
+
 	myApp.Action = func(c *cli.Context) error {
 		config := Config{}
-		config.LocalAddr = c.String("localaddr")
-		config.RemoteAddr = c.String("remoteaddr")
+		config.LocalAddr = localaddr
+		config.RemoteAddr = remoteaddr
 		config.Key = c.String("key")
 		config.Crypt = c.String("crypt")
 		config.Mode = c.String("mode")
