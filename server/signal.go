@@ -1,6 +1,6 @@
 // +build linux darwin freebsd
 
-package kcptun
+package server
 
 import (
 	"log"

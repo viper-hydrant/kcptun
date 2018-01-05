@@ -1,4 +1,4 @@
-package kcptun
+package server
 
 import (
 	"encoding/json"

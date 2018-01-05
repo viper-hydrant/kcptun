@@ -1,4 +1,4 @@
-package kcptun
+package server
 
 import (
 	"crypto/sha1"
