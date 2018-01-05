@@ -1,4 +1,4 @@
-package main
+package kcptun
 
 import (
 	"crypto/sha1"
@@ -114,7 +114,7 @@ func checkError(err error) {
 	}
 }
 
-func main() {
+func ActivateServer(target string) {
 	rand.Seed(int64(time.Now().Nanosecond()))
 	if VERSION == "SELFBUILD" {
 		// add more log flags for debugging
@@ -129,11 +129,6 @@ func main() {
 			Name:  "listen,l",
 			Value: ":29900",
 			Usage: "kcp server listen address",
-		},
-		cli.StringFlag{
-			Name:  "target, t",
-			Value: "127.0.0.1:12948",
-			Usage: "target server address",
 		},
 		cli.StringFlag{
 			Name:   "key",
@@ -252,7 +247,7 @@ func main() {
 	myApp.Action = func(c *cli.Context) error {
 		config := Config{}
 		config.Listen = c.String("listen")
-		config.Target = c.String("target")
+		config.Target = target
 		config.Key = c.String("key")
 		config.Crypt = c.String("crypt")
 		config.Mode = c.String("mode")
